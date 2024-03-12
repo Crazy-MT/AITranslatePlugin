@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.tracy.a8translateplus</id>
+    <name>A8TranslatePlus</name>
+    <version>1.2</version>
+    <vendor email="1540165300@qq.com" url="https://github.com/cuishijie1991/A8TranslatePlus">A8TranslatePlus</vendor>
+    <description><![CDATA[
+       A simple English-Chinese translation plug-in <br>
+       Original work 1: https://github.com/ice1000/A8Translate   <br>
+       Current address: https://github.com/cuishijie1991/A8TranslatePlus  <br>
+       Author: ice1000, cuishijie1991
+    ]]></description>
+
+    <change-notes><![CDATA[
+     1. Settings-Tools-A8TranslatePlus下增加切换翻译源功能
+     2. 增加百度翻译支持
+]]></change-notes>
+
+    <idea-version since-build="145.0"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <resource-bundle>messages.MyBundle</resource-bundle>
+    <actions>
+        <action id="A8TranslatePlus.TranslateAction"
+                class="com.tracy.a8translateplus.TranslateAction" text="A8TranslatePlus"
+                description="translate english to chinese">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt T"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.tracy.a8translateplus.AppSettingsConfigurable"
+                id="A8TranslatePlus.AppSettingsConfigurable"
+                displayName="A8TranslatePlus"/>
+    </extensions>
+</idea-plugin>
