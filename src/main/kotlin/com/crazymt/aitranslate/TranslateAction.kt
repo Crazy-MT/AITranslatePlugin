@@ -1,4 +1,4 @@
-package com.tracy.a8translateplus
+package com.crazymt.aitranslate
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -10,9 +10,9 @@ import com.intellij.openapi.ui.MessageType
 import com.intellij.openapi.ui.popup.Balloon
 import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.openapi.util.IconLoader
-import com.tracy.a8translateplus.bean.TranslateResult
-import com.tracy.a8translateplus.net.NetCallback
-import com.tracy.a8translateplus.net.requestNetData
+import com.crazymt.aitranslate.bean.TranslateResult
+import com.crazymt.aitranslate.net.NetCallback
+import com.crazymt.aitranslate.net.requestNetData
 
 
 /**
@@ -25,10 +25,6 @@ class TranslateAction : AnAction() {
 
     init {
         createPopup()
-    }
-
-    companion object {
-        private val icon = IconLoader.getIcon("/icons/a8.png")
     }
 
     private fun createPopup() {

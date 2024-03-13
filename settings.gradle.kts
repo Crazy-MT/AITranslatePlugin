@@ -1,1 +1,1 @@
-rootProject.name = "A8TranslatePlus"
+rootProject.name = "AITranslate"

@@ -1,4 +1,4 @@
-package com.tracy.a8translateplus.net
+package com.crazymt.aitranslate.net
 
 import java.io.*
 import java.security.MessageDigest

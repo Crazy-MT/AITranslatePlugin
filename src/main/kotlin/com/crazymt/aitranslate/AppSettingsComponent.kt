@@ -3,10 +3,10 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.UIUtil
 import com.intellij.util.ui.UIUtil.ComponentStyle
-import com.tracy.a8translateplus.net.LocalData
-import com.tracy.a8translateplus.net.SourceBaidu
-import com.tracy.a8translateplus.net.SourceNiu
-import com.tracy.a8translateplus.net.SourceOllama
+import com.crazymt.aitranslate.net.LocalData
+import com.crazymt.aitranslate.net.SourceBaidu
+import com.crazymt.aitranslate.net.SourceNiu
+import com.crazymt.aitranslate.net.SourceOllama
 import org.jdesktop.swingx.JXRadioGroup
 import org.jetbrains.annotations.NotNull
 import javax.swing.JPanel

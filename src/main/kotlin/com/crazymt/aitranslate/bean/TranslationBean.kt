@@ -1,8 +1,8 @@
-package com.tracy.a8translateplus.bean
+package com.crazymt.aitranslate.bean
 
-import com.tracy.a8translateplus.net.SourceBaidu
-import com.tracy.a8translateplus.net.SourceNiu
-import com.tracy.a8translateplus.net.SourceOllama
+import com.crazymt.aitranslate.net.SourceBaidu
+import com.crazymt.aitranslate.net.SourceNiu
+import com.crazymt.aitranslate.net.SourceOllama
 
 /**
  * 翻译结果的bean

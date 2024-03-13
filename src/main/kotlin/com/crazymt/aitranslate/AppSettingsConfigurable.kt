@@ -1,8 +1,8 @@
-package com.tracy.a8translateplus
+package com.crazymt.aitranslate
 
 import AppSettingsComponent
+import com.crazymt.aitranslate.net.*
 import com.intellij.openapi.options.Configurable
-import com.tracy.a8translateplus.net.*
 import org.jetbrains.annotations.Nls
 import org.jetbrains.annotations.Nullable
 import javax.swing.JComponent

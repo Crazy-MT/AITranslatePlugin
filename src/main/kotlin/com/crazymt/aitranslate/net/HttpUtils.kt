@@ -1,11 +1,11 @@
-package com.tracy.a8translateplus.net
+package com.crazymt.aitranslate.net
 
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import com.tracy.a8translateplus.bean.OllamaBean
-import com.tracy.a8translateplus.bean.BaiduTranslationBean
-import com.tracy.a8translateplus.bean.NiuTranslationBean
-import com.tracy.a8translateplus.bean.TranslateResult
+import com.crazymt.aitranslate.bean.OllamaBean
+import com.crazymt.aitranslate.bean.BaiduTranslationBean
+import com.crazymt.aitranslate.bean.NiuTranslationBean
+import com.crazymt.aitranslate.bean.TranslateResult
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL

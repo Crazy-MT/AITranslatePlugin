@@ -1,4 +1,4 @@
-package com.tracy.a8translateplus.net
+package com.crazymt.aitranslate.net
 
 interface NetCallback<T> {
     fun onSuccess(value: T)
