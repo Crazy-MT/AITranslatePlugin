@@ -9,16 +9,10 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.ui.MessageType
 import com.intellij.openapi.ui.popup.Balloon
 import com.intellij.openapi.ui.popup.JBPopupFactory
-import com.intellij.openapi.util.IconLoader
 import com.crazymt.aitranslate.bean.TranslateResult
 import com.crazymt.aitranslate.net.NetCallback
 import com.crazymt.aitranslate.net.requestNetData
 
-
-/**
- * @author cuishijie
- * *
- */
 class TranslateAction : AnAction() {
 
     var balloon: Balloon? = null
@@ -36,7 +30,7 @@ class TranslateAction : AnAction() {
     }
 
     private lateinit var editor: Editor
-    private var latestClickTime = 0L  // 上一次的点击时间
+    private var latestClickTime = 0L
     override fun actionPerformed(e: AnActionEvent) {
         if (!isFastClick(1000)) {
             editor = e.getData(PlatformDataKeys.EDITOR) ?: return
@@ -84,12 +78,6 @@ class TranslateAction : AnAction() {
         }
     }
 
-
-    /**
-     * 第三步 --> 弹出对话框
-
-     * @param result string result
-     */
     private fun showPopupWindow(result: String) {
         if (balloon != null && balloon?.isDisposed == false) {
             balloon?.hide()
@@ -104,9 +92,6 @@ class TranslateAction : AnAction() {
         }
     }
 
-    /**
-     * 屏蔽多次选中
-     */
     private fun isFastClick(timeMillis: Long): Boolean {
         val begin = System.currentTimeMillis()
         val end = begin - latestClickTime

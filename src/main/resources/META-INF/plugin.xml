@@ -31,6 +31,6 @@
                 parentId="tools"
                 instance="com.crazymt.aitranslate.AppSettingsConfigurable"
                 id="AITranslate.AppSettingsConfigurable"
-                displayName=""/>
+                displayName="AITranslate"/>
     </extensions>
 </idea-plugin>

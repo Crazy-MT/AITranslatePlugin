@@ -1,17 +1,10 @@
 package com.crazymt.aitranslate.net;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer
 import java.nio.charset.Charset
 
-/**
- * Created by Pinger on 2016/12/11.
- * 将流转换成字符串
- */
 class StreamUtils {
 
     companion object {

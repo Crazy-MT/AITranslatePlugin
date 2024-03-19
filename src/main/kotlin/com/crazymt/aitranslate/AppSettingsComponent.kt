@@ -1,15 +1,17 @@
+import com.crazymt.aitranslate.net.*
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.UIUtil
 import com.intellij.util.ui.UIUtil.ComponentStyle
-import com.crazymt.aitranslate.net.LocalData
-import com.crazymt.aitranslate.net.SourceBaidu
-import com.crazymt.aitranslate.net.SourceNiu
-import com.crazymt.aitranslate.net.SourceOllama
+import com.intellij.openapi.util.NlsContexts.RadioButton
+import com.intellij.ui.components.RadioButton
+import com.intellij.ui.layout.selected
 import org.jdesktop.swingx.JXRadioGroup
 import org.jetbrains.annotations.NotNull
+import javax.swing.ButtonGroup
 import javax.swing.JPanel
+import javax.swing.JRadioButton
 
 
 /**
@@ -17,53 +19,60 @@ import javax.swing.JPanel
  */
 class AppSettingsComponent {
     val panel: JPanel
-    private val etBaiduAppId = JBTextField()
-    private val etBaiduSecret = JBTextField()
     private val etOllamaURL = JBTextField("http://localhost:11434/api/generate")
-    private val etModelName = JBTextField()
-    private val radioSourceGroup = JXRadioGroup<String>()
+    private val etModelName = JBTextField() // gemma:2b
+    private val etGemini = JBTextField()
+
+    private val rbOllama = JRadioButton("Ollama 翻译配置");
+    private val rbGemini = JRadioButton("Gemini 翻译配置");
+
+    private val buttonGroup = ButtonGroup();
 
     init {
-        radioSourceGroup.add(SourceNiu)
-        radioSourceGroup.add(SourceBaidu)
-        radioSourceGroup.add(SourceOllama)
-        radioSourceGroup.selectedValue = (LocalData.read("sourceType")) ?: SourceNiu
-//        radioGroup.addActionListener {
-//            if (it != null) {
-//                source = radioGroup.selectedValue
-//            }
-//        }
+        buttonGroup.add(rbOllama)
+        buttonGroup.add(rbGemini)
+
+        rbOllama.addItemListener {
+            val source = it.source as JRadioButton
+            if (source.isSelected) {
+                sourceType = SourceOllama
+            }
+        }
+
+        rbGemini.addItemListener {
+            val source = it.source as JRadioButton
+            if (source.isSelected) {
+                sourceType = SourceGemini
+            }
+        }
+
+        buttonGroup.setSelected(rbGemini.model, true)
 
         panel = FormBuilder.createFormBuilder()
-                .addComponent(JBLabel("翻译源 （默认小牛翻译）"))
-                .addComponent(radioSourceGroup)
-                .addSeparator()
-                .addComponent(JBLabel("百度翻译配置"))
-                .addComponent(JBLabel("(请到https://api.fanyi.baidu.com/doc/21免费申请开通个人开发者账号）", ComponentStyle.SMALL, UIUtil.FontColor.BRIGHTER))
-                .addLabeledComponent(JBLabel("AppId "), etBaiduAppId, 1, false)
-                .addLabeledComponent(JBLabel("秘钥 "), etBaiduSecret, 1, false)
-                .addSeparator()
-                .addComponent(JBLabel("Ollama 翻译配置"))
-                .addComponent(JBLabel("请安装 https://ollama.com/ 及本地大模型后使用", ComponentStyle.SMALL, UIUtil.FontColor.BRIGHTER))
-                .addLabeledComponent(JBLabel("API URL"), etOllamaURL, 1, false)
-                .addLabeledComponent(JBLabel("API 模型"), etModelName, 1, false)
-                .addComponentFillVertically(JPanel(), 0)
-                .panel
+            .addSeparator()
+            .addComponent(rbOllama)
+            .addComponent(
+                JBLabel(
+                    "请安装 https://ollama.com/ 及本地大模型后使用",
+                    ComponentStyle.SMALL,
+                    UIUtil.FontColor.BRIGHTER
+                )
+            )
+            .addLabeledComponent(JBLabel("API URL"), etOllamaURL, 1, false)
+            .addLabeledComponent(JBLabel("API 模型"), etModelName, 1, false)
+            .addSeparator()
+            .addComponent(rbGemini)
+            .addComponent(
+                JBLabel(
+                    "申请 apikey https://aistudio.google.com/app/apikey",
+                    ComponentStyle.SMALL,
+                    UIUtil.FontColor.BRIGHTER
+                )
+            )
+            .addLabeledComponent(JBLabel("api key"), etGemini, 1, false)
+            .addComponentFillVertically(JPanel(), 0)
+            .panel
     }
-
-    @get:NotNull
-    var baiduAppId: String
-        get() = etBaiduAppId.getText()
-        set(newText) {
-            etBaiduAppId.setText(newText)
-        }
-
-    @get:NotNull
-    var baiduSecret: String
-        get() = etBaiduSecret.getText()
-        set(newText) {
-            etBaiduSecret.setText(newText)
-        }
 
     @get:NotNull
     var ollamaURL: String
@@ -80,9 +89,30 @@ class AppSettingsComponent {
         }
 
     @get:NotNull
-    var sourceType: String
-        get() = radioSourceGroup.selectedValue
+    var geminiAPIKey: String
+        get() = etGemini.getText()
         set(newText) {
-            radioSourceGroup.selectedValue = newText
+            etGemini.setText(newText)
+        }
+
+    @get:NotNull
+    var sourceType: String
+        get() {
+            if (rbOllama.isSelected) {
+                return SourceOllama
+            }
+
+            if (rbGemini.isSelected) {
+                return SourceGemini
+            }
+            return SourceGemini
+        }
+        set(newText) {
+            if (newText == SourceOllama) {
+                buttonGroup.setSelected(rbOllama.model, true)
+            }
+            if (newText == SourceGemini) {
+                buttonGroup.setSelected(rbGemini.model, true)
+            }
         }
 }

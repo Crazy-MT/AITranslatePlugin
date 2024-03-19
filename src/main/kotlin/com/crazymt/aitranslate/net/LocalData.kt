@@ -7,14 +7,10 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.*
 
-/**
- *
- * @author cuishijie
- */
-const val PREFIX_NAME = "A8Plus"
+const val PREFIX_NAME = "aitranslate"
 
 object LocalData {
-    private val f = File(System.getProperty("user.home") + "/a8plus.properties")
+    private val f = File(System.getProperty("user.home") + "/aitranslate.properties")
     private val p = Properties()
     private var isInitialized = false
     fun store(@NonNls key: String, @NonNls value: String) {
