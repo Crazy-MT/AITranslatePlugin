@@ -3,7 +3,7 @@
 ## 描述
 AITranslator 是一款集成了 Ollama 本地大模型和 Gemini 大模型的插件，专门用于将英语文本翻译成中文，同时结合了编程语言的特性进行翻译。该插件能够理解并转换编程语言相关的术语、概念和结构，使得翻译结果更符合程序员的理解和使用习惯。
 ## Description
-The Programming Language Feature Translator is a plugin that integrates the Ollama local model and Gemini large model, specifically designed to translate English text into Chinese while incorporating programming language features. This plugin understands and converts terminology, concepts, and structures related to programming languages, resulting in translations that are more in line with the understanding and usage habits of programmers.
+AITranslator is a plugin that integrates the Ollama local model and Gemini large model, specifically designed to translate English text into Chinese while incorporating programming language features. This plugin understands and converts terminology, concepts, and structures related to programming languages, resulting in translations that are more in line with the understanding and usage habits of programmers.
 ## 特点
 1. 结合 Ollama 和 Gemini 大模型，提供高质量的英语到中文翻译服务。
 2. 专注于编程语言领域，能够识别和翻译与编程相关的专业术语和语法结构。
