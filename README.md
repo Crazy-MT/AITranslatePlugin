@@ -19,4 +19,4 @@ The Programming Language Feature Translator is a plugin that integrates the Olla
 5. High flexibility, can be used as a plugin for IDEs, integrating with commonly used programming tools and environments.
 6. Whether you are a beginner or a seasoned developer, the Programming Language Feature Translator provides accurate and professional translation support, making it easier for you to grasp and apply programming knowledge.
 <!-- Plugin description end -->
-[Page on plugin repository site](https://plugins.jetbrains.com/plugin/23944-dancing-cow-cat-progress-bar)
+[Page on plugin repository site](https://plugins.jetbrains.com/plugin/23993-aitranslate)
