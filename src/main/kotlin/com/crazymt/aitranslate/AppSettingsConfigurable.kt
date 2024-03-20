@@ -26,15 +26,14 @@ internal class AppSettingsConfigurable : Configurable {
     ///判断是否调用apply
     override fun isModified(): Boolean {
         val sourceType = LocalData.read("sourceType")
-        val baiduAppId = LocalData.read("baiduAppId")
-        val baiduSecret = LocalData.read("baiduSecret")
         val ollamaURL = LocalData.read("ollamaURL")
         val modelName = LocalData.read("modelName")
         val geminiAPIkey = LocalData.read("geminiAPIkey")
 
         var modified: Boolean = !mySettingsComponent?.sourceType.equals(sourceType)
         modified = modified
-                || !mySettingsComponent?.ollamaURL.equals(ollamaURL) || !mySettingsComponent?.modelName.equals(modelName)
+                || !mySettingsComponent?.ollamaURL.equals(ollamaURL) || !mySettingsComponent?.ollamaURL.equals(modelName)
+                || !mySettingsComponent?.modelName.equals(modelName) || !mySettingsComponent?.modelName.equals(modelName)
                 || !mySettingsComponent?.geminiAPIKey.equals(geminiAPIkey) || !mySettingsComponent?.geminiAPIKey.equals(geminiAPIkey)
         return modified
     }

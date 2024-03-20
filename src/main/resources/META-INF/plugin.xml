@@ -10,6 +10,7 @@
 
     <change-notes><![CDATA[
      1. 支持 Ollama 本地大模型
+     2. 支持 Google Gemini Pro
 ]]></change-notes>
 
     <idea-version since-build="145.0"/>
