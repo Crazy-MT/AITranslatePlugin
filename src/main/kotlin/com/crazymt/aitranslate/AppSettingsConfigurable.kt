@@ -28,18 +28,18 @@ internal class AppSettingsConfigurable : Configurable {
         val sourceType = LocalData.read("sourceType")
         val ollamaURL = LocalData.read("ollamaURL")
         val modelName = LocalData.read("modelName")
-        val geminiAPIkey = LocalData.read("geminiAPIkey")
+        val geminiAPIkey = LocalData.read("geminiAPIKey")
 
         var modified: Boolean = !mySettingsComponent?.sourceType.equals(sourceType)
+
         modified = modified
-                || !mySettingsComponent?.ollamaURL.equals(ollamaURL) || !mySettingsComponent?.ollamaURL.equals(modelName)
-                || !mySettingsComponent?.modelName.equals(modelName) || !mySettingsComponent?.modelName.equals(modelName)
-                || !mySettingsComponent?.geminiAPIKey.equals(geminiAPIkey) || !mySettingsComponent?.geminiAPIKey.equals(geminiAPIkey)
+                || !mySettingsComponent?.ollamaURL.equals(ollamaURL)
+                || !mySettingsComponent?.modelName.equals(modelName)
+                || !mySettingsComponent?.geminiAPIKey.equals(geminiAPIkey)
         return modified
     }
     ///保存设置
     override fun apply() {
-        println("apply settings")
         var _sourceType = mySettingsComponent?.sourceType ?: SourceGemini
 
         val _ollamaURL = mySettingsComponent?.ollamaURL ?: ""

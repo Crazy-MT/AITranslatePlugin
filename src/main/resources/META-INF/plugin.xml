@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.crazymt.AITranslate</id>
     <name>AITranslate</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <vendor email="ytumaotong@gmail.com" url="https://github.com/Crazy-MT/AITranslatePlugin">AITranslate</vendor>
     <description><![CDATA[
        A simple English-Chinese translation plug-in <br>
