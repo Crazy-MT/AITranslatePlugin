@@ -10,7 +10,7 @@ import java.util.*
 const val PREFIX_NAME = "aitranslate"
 
 object LocalData {
-    private val f = File(System.getProperty("user.home") + "/aitranslate.properties")
+    private val f = File(System.getProperty("user.home") + "/.aitranslate.properties")
     private val p = Properties()
     private var isInitialized = false
     fun store(@NonNls key: String, @NonNls value: String) {

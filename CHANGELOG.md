@@ -4,3 +4,7 @@
 ### Changed
 - ollama
 - Google gemini pro
+
+## [1.1.0]
+### Changed
+- ollama url set default value

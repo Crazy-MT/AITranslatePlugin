@@ -29,6 +29,7 @@ class AppSettingsComponent {
     private val buttonGroup = ButtonGroup();
 
     init {
+        etOllamaURL.text = "http://localhost:11434/api/generate"
         buttonGroup.add(rbOllama)
         buttonGroup.add(rbGemini)
 
@@ -78,7 +79,12 @@ class AppSettingsComponent {
     var ollamaURL: String
         get() = etOllamaURL.getText()
         set(newText) {
-            etOllamaURL.setText(newText)
+            println("MTMTMT: newText: " + newText)
+            if (newText == "") {
+                etOllamaURL.text = "http://localhost:11434/api/generate"
+            } else {
+                etOllamaURL.setText(newText)
+            }
         }
 
     @get:NotNull

@@ -42,7 +42,7 @@ internal class AppSettingsConfigurable : Configurable {
     override fun apply() {
         var _sourceType = mySettingsComponent?.sourceType ?: SourceGemini
 
-        val _ollamaURL = mySettingsComponent?.ollamaURL ?: ""
+        val _ollamaURL = mySettingsComponent?.ollamaURL ?: "http://localhost:11434/api/generate"
         val _modelName = mySettingsComponent?.modelName ?: ""
         val _geminiAPIKey = mySettingsComponent?.geminiAPIKey ?: ""
 
@@ -64,7 +64,7 @@ internal class AppSettingsConfigurable : Configurable {
 
         mySettingsComponent?.let {
             it.sourceType = sourceType ?: ""
-            it.ollamaURL = ollamaURL ?: ""
+            it.ollamaURL = ollamaURL ?: "http://localhost:11434/api/generate"
             it.modelName = modelName ?: ""
             it.geminiAPIKey = geminiAPIKey ?: ""
         }

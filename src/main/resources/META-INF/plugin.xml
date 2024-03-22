@@ -2,16 +2,11 @@
 <idea-plugin>
     <id>com.crazymt.AITranslate</id>
     <name>AITranslate</name>
-    <version>1.0</version>
+    <version>1.1.0</version>
     <vendor email="ytumaotong@gmail.com" url="https://github.com/Crazy-MT/AITranslatePlugin">AITranslate</vendor>
     <description><![CDATA[
        A simple English-Chinese translation plug-in <br>
     ]]></description>
-
-    <change-notes><![CDATA[
-     1. 支持 Ollama 本地大模型
-     2. 支持 Google Gemini Pro
-]]></change-notes>
 
     <idea-version since-build="145.0"/>
 
