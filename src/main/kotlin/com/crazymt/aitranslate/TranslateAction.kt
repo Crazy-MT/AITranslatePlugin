@@ -1,5 +1,6 @@
 package com.crazymt.aitranslate
 
+import com.crazymt.aitranslate.bean.ModelResult
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
@@ -9,7 +10,6 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.ui.MessageType
 import com.intellij.openapi.ui.popup.Balloon
 import com.intellij.openapi.ui.popup.JBPopupFactory
-import com.crazymt.aitranslate.bean.TranslateResult
 import com.crazymt.aitranslate.net.NetCallback
 import com.crazymt.aitranslate.net.requestNetData
 
@@ -54,8 +54,8 @@ class TranslateAction : AnAction() {
 
             Thread{
                 /* 第二步 ---> API查询 */
-                requestNetData(fileExtension, selectedText, object : NetCallback<TranslateResult> {
-                    override fun onSuccess(data: TranslateResult) {
+                requestNetData(fileExtension, selectedText, object : NetCallback<ModelResult> {
+                    override fun onSuccess(data: ModelResult) {
                         println(data.toString())
                         val text: String
                         if (data.result != null) {

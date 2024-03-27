@@ -7,9 +7,11 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 import java.io.OutputStreamWriter
+import java.net.URLEncoder
 
 val SourceOllama = "Ollama(本地模型)"
 val SourceGemini = "Gemini"
+val SourceOpenAI = "OpenAI"
 
 var sourceType = LocalData.read("sourceType")
 
@@ -17,7 +19,11 @@ var ollamaURL = LocalData.read("ollamaURL")
 var modelName = LocalData.read("modelName")
 var geminiAPIKey = LocalData.read("geminiAPIKey")
 
-fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<TranslateResult>) {
+var openAIURL = LocalData.read("openAIURL")
+var openAIModelName = LocalData.read("openAIModelName")
+var openAIAPIKey = LocalData.read("openAIAPIKey")
+
+fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<ModelResult>) {
     try {
         /*LocalData.read(queryWord)?.let {
             try {
@@ -28,6 +34,8 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
             }
             return
         }*/
+        val queryStr = URLEncoder.encode(queryWord.replace(Regex("[*+\\- \r]+"), " "), "UTF-8")
+
         when (sourceType) {
             SourceOllama -> {
                 val url = URL(ollamaURL)
@@ -46,7 +54,7 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
                 val jsonInputString = """
                     {
                         "model": "$modelName",
-                        "prompt": "${queryWord.replace(Regex("[*+\\- \r]+"), " ")}",
+                        "prompt": "$queryStr",
                         "stream": false,
                         "system":"你是一位精通简体中文的专业翻译，我希望你能帮我将以下英文翻译成中文。  规则： - 这些英文和编程专业知识相关，这些英文来自java代码，注意翻译时术语的准确性 - 译文需要通俗、简洁、易懂。- 翻译时采用以下步骤 1. 第一步，按照字面意思直译翻译这一段文本内容 2. 第二步，参照第一步直译的结果，结合上下文，对内容进行意译"
                     }
@@ -62,7 +70,7 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
                     val content = StreamUtils.getStringFromStream(ins)
                     if (content.isNotBlank()) {
 //                        println(content);
-                        val result = Gson().fromJson(content, OllamaBean::class.java).toTranslateResult()
+                        val result = Gson().fromJson(content, OllamaBean::class.java).toModelResult()
                         callBack.onSuccess(result)
                         //                    LocalData.store(queryWord, Gson().toJson(result))
                     } else {
@@ -93,7 +101,7 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
                         {
                           "parts": [
                             {
-                              "text": "你是一位精通简体中文的专业翻译，我希望你能帮我将以下英文翻译成中文。  规则： - 这些英文和编程专业知识相关，这些英文来自 $file 代码，注意翻译时术语的准确性 - 译文需要通俗、简洁、易懂。- 翻译时采用以下步骤，直接告诉我第二步的结果，注意，直接告诉我最终结果，不需要其它修饰词。 1. 第一步，按照字面意思直译翻译这一段文本内容 2. 第二步，参照第一步直译的结果，结合上下文，对内容进行意译。 英文：${queryWord.replace(Regex("[*+\\- \r]+"), " ")}"
+                              "text": "你是一位精通简体中文的专业翻译，我希望你能帮我将以下英文翻译成中文。  规则： - 这些英文和编程专业知识相关，这些英文来自 $file 代码，注意翻译时术语的准确性 - 译文需要通俗、简洁、易懂。- 翻译时采用以下步骤，直接告诉我第二步的结果，注意，直接告诉我最终结果，不需要其它修饰词。 1. 第一步，按照字面意思直译翻译这一段文本内容 2. 第二步，参照第一步直译的结果，结合上下文，对内容进行意译。 英文：$queryStr"
                             }
                           ]
                         }
@@ -136,7 +144,7 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
                     val content = StreamUtils.getStringFromStream(ins)
                     if (content.isNotBlank()) {
                         println(content);
-                        val result = Gson().fromJson(content, GeminiBean::class.java).toTranslateResult()
+                        val result = Gson().fromJson(content, GeminiBean::class.java).toModelResult()
                         callBack.onSuccess(result)
                         //                    LocalData.store(queryWord, Gson().toJson(result))
                     } else {
@@ -147,6 +155,51 @@ fun requestNetData(file: String?, queryWord: String, callBack: NetCallback<Trans
                 }
                 return
             }
+
+            SourceOpenAI -> {
+                val url = URL(openAIURL)
+
+                val connection = url.openConnection() as HttpURLConnection
+
+                connection.requestMethod = "POST"
+                connection.connectTimeout = 3000
+                connection.readTimeout = 30000
+                connection.setRequestProperty("Content-Type", "application/json")
+                connection.setRequestProperty("Authorization", "Bearer $openAIAPIKey")
+
+                connection.doOutput = true
+                val jsonInputString = """
+                    {
+                     "model": "$openAIModelName",
+                     "messages": [
+                        {"role": "system", "content": "你是一位精通简体中文的专业翻译，我希望你能帮我将以下英文翻译成中文。  规则： - 这些英文和编程专业知识相关，这些英文来自 $file 代码，注意翻译时术语的准确性 - 译文需要通俗、简洁、易懂。- 翻译时采用以下步骤，直接告诉我第二步的结果，注意，直接告诉我最终结果，不需要其它修饰词。 1. 第一步，按照字面意思直译翻译这一段文本内容 2. 第二步，参照第一步直译的结果，结合上下文，对内容进行意译。"},
+                        {"role": "user", "content": "$queryStr"}
+                     ],
+                     "temperature": 0.3
+                    }
+                    """.trimIndent()
+
+                val outputStream = OutputStreamWriter(connection.outputStream)
+                outputStream.write(jsonInputString)
+                outputStream.flush()
+
+                if (connection.responseCode == 200) {
+                    val ins = connection.inputStream
+
+                    val content = StreamUtils.getStringFromStream(ins)
+                    if (content.isNotBlank()) {
+                        val result = Gson().fromJson(content, OpenAIBean::class.java).toModelResult()
+                        callBack.onSuccess(result)
+                        //                    LocalData.store(queryWord, Gson().toJson(result))
+                    } else {
+                        callBack.onFail("翻译接口返回为空")
+                    }
+                } else {
+                    callBack.onFail("错误码：${connection.responseCode}\n错误信息：\n${connection.responseMessage}")
+                }
+                return
+            }
+
 
             else -> {
                 callBack.onFail("不支持的翻译源类型$sourceType")

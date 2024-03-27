@@ -2,16 +2,17 @@ package com.crazymt.aitranslate.bean
 
 import com.crazymt.aitranslate.net.SourceGemini
 import com.crazymt.aitranslate.net.SourceOllama
+import com.crazymt.aitranslate.net.SourceOpenAI
 
-data class TranslateResult(val source: String, val from: String, val to: String, val src: String, val result: String?, val error: String?) {
+data class ModelResult(val source: String, val from: String, val to: String, val src: String, val result: String?, val error: String?) {
     override fun toString(): String {
         return "$source: ${result ?: "error:${error}"}"
     }
 }
 
 data class OllamaBean(val model: String, val response: String) {
-    fun toTranslateResult(): TranslateResult {
-        return TranslateResult(SourceOllama, model, response, response, response, "");
+    fun toModelResult(): ModelResult {
+        return ModelResult(SourceOllama, model, response, response, response, "");
     }
 }
 
@@ -19,8 +20,8 @@ data class GeminiBean(
     val candidates: List<Candidate>,
     val promptFeedback: PromptFeedback
 ) {
-    fun toTranslateResult(): TranslateResult {
-        return TranslateResult(SourceGemini, SourceGemini, candidates[0].content.parts[0].text, candidates[0].content.parts[0].text, candidates[0].content.parts[0].text, "");
+    fun toModelResult(): ModelResult {
+        return ModelResult(SourceGemini, SourceGemini, candidates[0].content.parts[0].text, candidates[0].content.parts[0].text, candidates[0].content.parts[0].text, "");
     }
 }
 
@@ -48,4 +49,34 @@ data class PromptFeedback(
     val safetyRatings: List<SafetyRating>
 )
 
+
+data class OpenAIBean(
+    val id: String,
+    val `object`: String,
+    val created: Long,
+    val model: String,
+    val choices: List<Choice>,
+    val usage: Usage
+) {
+    fun toModelResult(): ModelResult {
+        return ModelResult(SourceOpenAI, SourceOpenAI, choices[0].message.content, choices[0].message.content, choices[0].message.content, "");
+    }
+}
+
+data class Choice(
+    val index: Int,
+    val message: Message,
+    val finish_reason: String
+)
+
+data class Message(
+    val role: String,
+    val content: String
+)
+
+data class Usage(
+    val prompt_tokens: Int,
+    val completion_tokens: Int,
+    val total_tokens: Int
+)
 
